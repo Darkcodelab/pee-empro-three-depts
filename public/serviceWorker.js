@@ -21,7 +21,7 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
-  const currentCaches = ["precache-v1", "runtime"];
+  const currentCaches = ["precache-v1"];
   event.waitUntil(
     caches
       .keys()

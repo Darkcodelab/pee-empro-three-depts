@@ -92,18 +92,19 @@ app.use("/logout", require("./routes/logout"));
 app.use("/subscribe", require("./routes/subscribe"));
 
 //To Register a new User
-// let User = require("./models/User");
-// let bcrypt = require("bcrypt");
-// app.post("/register", async (req, res) => {
-//   let username = req.body.name;
-//   let pass = req.body.pass;
-//   let newUser = {
-//     email: username,
-//     password: bcrypt.hashSync(pass, 10),
-//     id: "user01",
-//   };
-//   let createUser = await User.create(newUser);
-//   res.send("Success");
-// });
+let User = require("./models/User");
+let bcrypt = require("bcrypt");
+let shortid = require("shortid");
+app.post("/register", async (req, res) => {
+  let username = req.body.name;
+  let pass = req.body.pass;
+  let newUser = {
+    email: username,
+    password: bcrypt.hashSync(pass, 10),
+    id: shortid.generate(),
+  };
+  let createUser = await User.create(newUser);
+  res.send("Success");
+});
 
 http.listen(PORT, console.log(`Server running on http://localhost:${PORT}`));
