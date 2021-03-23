@@ -20,7 +20,7 @@ body {
   font-family: "Poppins", sans-serif;
   /* background: linear-gradient(to right, #acb6e5, #86fde8); */
   background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)),
-    url("/images/bg-image.png");
+    url("/images/bg-image.jpg");
   /* background-position: center;
   background-size: contain;
   background-repeat: no-repeat; */

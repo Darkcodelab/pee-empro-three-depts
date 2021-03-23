@@ -3,10 +3,10 @@ let PRECACHE_URLS = [
   "/css/style.css",
   "/js/app.js",
   "/serviceWorker.js",
+  "/images/bg-image.jpg",
 ];
 
 self.addEventListener("push", (e) => {
-  console.log(data.title);
   const data = e.data.json();
   self.registration.showNotification(data.title);
 });

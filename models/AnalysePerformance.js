@@ -34,6 +34,7 @@ let AnalysePerformanceSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      indexes: { expires: "90d" },
     },
     published: {
       type: String,

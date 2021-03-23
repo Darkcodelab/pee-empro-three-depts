@@ -74,6 +74,7 @@
       btn.addEventListener("click", function() {
         socket.emit('dept completed', 'Task completed by Fabric Inspection Department')
       });
+    }
       socket.on('dept completed', msg => {
         document.getElementById("notification").muted = false;
         document.getElementById("notification").play();
@@ -109,9 +110,9 @@
             return outputArray;
         }
       })
-    }
+    
     </script>
-    <script>
+    <!-- <script>
       let InProgressContainer = document.getElementById("InProgressContainer");
       let InProgressLength = InProgressContainer.children.length;
       let startCard = document.getElementsByClassName('start__card')
@@ -128,7 +129,7 @@
             }
           }
       })
-    </script>
+    </script> -->
 
   </body>
 </html>

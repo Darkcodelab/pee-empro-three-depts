@@ -89,6 +89,7 @@ app.use("/notification-board", require("./routes/notification-board"));
 app.use("/analyze", require("./routes/analyse"));
 app.use("/login", require("./routes/login"));
 app.use("/logout", require("./routes/logout"));
+app.use("/subscribe", require("./routes/subscribe"));
 
 //To Register a new User
 // let User = require("./models/User");
