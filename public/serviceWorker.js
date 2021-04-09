@@ -1,6 +1,5 @@
 let PRECACHE_URLS = [
   "/sounds/notification.mp3",
-  "/css/style.css",
   "/js/app.js",
   "/serviceWorker.js",
   "/images/bg-image.jpg",
@@ -48,25 +47,39 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+// self.addEventListener("fetch", (event) => {
+//   if (event.request.url.startsWith(self.location.origin)) {
+//     event.respondWith(
+//       caches.match(event.request).then((cachedResponse) => {
+//         if (cachedResponse) {
+//           return cachedResponse;
+//         }
+//         // return caches.open("runtime").then((cache) => {
+//         // if (event.request.method == "GET") {
+//         //   return fetch(event.request).then((response) => {
+//         //     return cache.put(event.request, response.clone()).then(() => {
+//         //       return response;
+//         //     });
+//         //   });
+//         // } else {
+//         return fetch(event.request);
+//         // }
+//         // });
+//       })
+//     );
+//   }
+// });
+
 self.addEventListener("fetch", (event) => {
-  if (event.request.url.startsWith(self.location.origin)) {
-    event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        // return caches.open("runtime").then((cache) => {
-        // if (event.request.method == "GET") {
-        //   return fetch(event.request).then((response) => {
-        //     return cache.put(event.request, response.clone()).then(() => {
-        //       return response;
-        //     });
-        //   });
-        // } else {
-        return fetch(event.request);
-        // }
-        // });
-      })
-    );
-  }
+  // Prevent the default, and handle the request ourselves.
+  event.respondWith(
+    (async function () {
+      // Try to get the response from a cache.
+      const cachedResponse = await caches.match(event.request);
+      // Return it if we found one.
+      if (cachedResponse) return cachedResponse;
+      // If we didn't find a match in the cache, use the network.
+      return fetch(event.request);
+    })()
+  );
 });

@@ -4,8 +4,8 @@ const path = require("path");
 const cuttingBoard = require("../models/cuttingBoardTodo");
 const CuttingBoardInProgress = require("../models/CuttingBoardInProgress");
 const CuttingBoardCompleted = require("../models/CuttingBoardCompleted");
-let PerformanceAnalyze = require("../models/AnalysePerformance");
 let NotificationBoard = require("../models/NotificationBoard");
+let AvailablePieces = require("../models/AvailablePieces");
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -60,10 +60,10 @@ router.get("/completed/:id", checkAuth, async (req, res) => {
       newCompletedCard[prop] = deletedCard[prop];
     }
   });
-  let completedCard = await CuttingBoardCompleted.create(newCompletedCard);
-  newCompletedCard.dept = "cutting";
   delete newCompletedCard._id;
-  let performance = await PerformanceAnalyze.create(newCompletedCard);
+  let completedCard = await CuttingBoardCompleted.create(newCompletedCard);
+  let available = await AvailablePieces.create(newCompletedCard);
+  newCompletedCard.dept = "cutting";
   let notificationData = {
     dept: "One WorkCycle Completed",
   };

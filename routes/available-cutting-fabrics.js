@@ -1,9 +1,8 @@
-const router = require("express").Router();
+const express = require("express");
+const AvailableCuttingFabrics = require("../models/AvailableCuttingFabrics");
+const router = express.Router();
 const path = require("path");
-let moment = require("moment");
-
-//Models
-let AnalysePerformance = require("../models/AnalysePerformance");
+const moment = require("moment");
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -18,13 +17,17 @@ function checkAuth(req, res, next) {
 }
 
 router.get("/", async (req, res) => {
-  let data = await AnalysePerformance.find({}, "-_id -__v")
+  //Get data from availabe-cutting-fabrics Model
+  let data = await AvailableCuttingFabrics.find({}, "-_id -__v")
     .sort({ createdAt: -1 })
     .lean();
-  res.render(path.join(__dirname, "../", "/views/analyse"), {
-    data,
-    moment,
-  });
+  res.render(
+    path.join(__dirname, "../", "/views/available-cutting-fabrics.ejs"),
+    {
+      data,
+      moment,
+    }
+  );
 });
 
 router.post("/filter", async (req, res) => {
@@ -38,19 +41,22 @@ router.post("/filter", async (req, res) => {
       obj[prop] = req.body[prop];
     }
   });
-  let data = await AnalysePerformance.find(obj, "-_id -__v")
+  let data = await AvailableCuttingFabrics.find(obj, "-_id -__v")
     .sort({ createdAt: -1 })
     .lean();
-  res.render(path.join(__dirname, "../", "/views/analyse.ejs"), {
-    data,
-    moment,
-  });
+  res.render(
+    path.join(__dirname, "../", "/views/available-cutting-fabrics.ejs"),
+    {
+      data,
+      moment,
+    }
+  );
 });
 
 router.get("/delete/:id", checkAuth, async (req, res) => {
   let id = req.params.id;
-  let deletedCard = await AnalysePerformance.findOneAndDelete({ id: id });
-  res.redirect("/analyze");
+  let deletedCard = await AvailableCuttingFabrics.findOneAndDelete({ id: id });
+  res.redirect("/available-fabrics-for-cutting");
 });
 
 module.exports = router;

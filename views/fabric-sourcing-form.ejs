@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PE Empro || Fabric Inspection Department Sourcing</title>
+    <title>PE Empro || Fabric Recieving Department - Inventory</title>
     <%- include('./partials/head.ejs') %>
   </head>
   <body>
@@ -37,15 +37,15 @@
             <label for="dateOfReceiving">Date of Receiving: </label>
             <input type="Date" name="dateOfReceiving" id="dateOfReceiving" />
           </div>
-          <div class="formgroup">
+          <!-- <div class="formgroup">
             <label for="dateOfInspection">Date Of Inspection: </label>
             <input type="Date" name="dateOfInspection" id="dateOfInspection" />
-          </div>
+          </div> -->
           <div class="formgroup">
-            <label for="length">Length: </label>
+            <label for="length">Length (in meters): </label>
             <input type="number" name="length" id="length" />
           </div>
-          <div class="formgroup">
+          <!-- <div class="formgroup">
             <label for="afterInspection">After Inspection: </label>
             <select name="afterInspection" id="afterInspection">
               <option value="OK Pass">Ok Pass</option>
@@ -53,7 +53,7 @@
               <option value="Rejected">Rejected</option>
               <option value="Approval Pending">Approval Pending</option>
             </select>
-          </div>
+          </div> -->
           <div id="extra-fields-div" class="formgroup"></div>
           <button id="customFields">Add More Fields +</button>
           <input type="submit" value="Submit" />

@@ -21,7 +21,15 @@
                 <% for(let key in data[i]) {%>
                   <% if(key !== 'id') {%> 
                     <% if(key !== 'createdAt') {%> 
-                      <div><b><%=key %>:</b>  <%=data[i][key] %>  </div>
+                      <% if(key == 'dateOfInspection') {%> 
+                        <% humanTime = moment(new Date(data[i][key])).format("ll") %> 
+                        <div><b><%=key %>:</b> <%=humanTime%></div>
+                      <%} else if(key == 'dateOfReceiving') {%> 
+                        <% humanReceivingTime = moment(new Date(data[i][key])).format('ll') %>
+                        <div><b><%=key %>:</b> <%=humanReceivingTime%></div>
+                      <% } else {%> 
+                        <div><b><%=key %>:</b>  <%=data[i][key] %>  </div>
+                      <% } %> 
                     <% } %> 
                   <% } %>
                 <% } %>
@@ -38,10 +46,21 @@
                 <% for(let key in inProgress[i]) {%> 
                   <% if(key !== 'id') {%> 
                     <% if(key !== 'createdAt') {%> 
-                      <div><b><%=key %>:</b>  <%=inProgress[i][key] %>  </div>
+                      <% if(key == 'dateOfInspection') {%> 
+                        <% humanTime = moment(new Date(inProgress[i][key])).format("ll") %> 
+                        <div><b><%=key %>:</b> <%=humanTime%></div>
+                      <%} else if(key == 'dateOfReceiving') {%> 
+                        <% humanReceivingTime = moment(new Date(inProgress[i][key])).format('ll') %>
+                        <div><b><%=key %>:</b> <%=humanReceivingTime%></div>
+                      <% } else {%> 
+                        <div><b><%=key %>:</b>  <%=inProgress[i][key] %>  </div>
+                      <% } %> 
                     <% } %> 
                   <% } %>
                 <% } %>
+                <div class="start__div">
+                  <a class="start-edit" href="/fabric-inspection-board/edit/<%=inProgress[i].id%>" style="margin-top: 12px">Edit</a>
+                </div>
                 <div class="card__completed"><a class="fabric-completed" href="/fabric-inspection-board/completed/<%=inProgress[i].id%>">Completed</a></div>
               </li>
             <%}%>
@@ -55,7 +74,15 @@
                 <% for(let key in completed[i]) {%> 
                   <% if(key !== 'id') {%> 
                     <% if(key !== 'createdAt') {%> 
-                      <div><b><%=key %>:</b>  <%=completed[i][key] %>  </div>
+                      <% if(key == 'dateOfInspection') {%> 
+                        <% humanTime = moment(new Date(completed[i][key])).format("ll") %> 
+                        <div><b><%=key %>:</b> <%=humanTime%></div>
+                      <%} else if(key == 'dateOfReceiving') {%> 
+                        <% humanReceivingTime = moment(new Date(completed[i][key])).format('ll') %>
+                        <div><b><%=key %>:</b> <%=humanReceivingTime%></div>
+                      <% } else {%> 
+                        <div><b><%=key %>:</b>  <%=completed[i][key] %>  </div>
+                      <% } %> 
                     <% } %> 
                   <% } %>
                 <% } %>
@@ -130,6 +157,5 @@
           }
       })
     </script> -->
-
   </body>
 </html>

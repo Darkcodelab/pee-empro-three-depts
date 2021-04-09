@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PE Empro || Fabric Inspection Department Issuing Card</title>
+    <title>PE Empro || cutting Inspection Department Issuing Card</title>
     <%- include('./partials/head.ejs') %>
   </head>
   <body>
@@ -19,8 +19,8 @@
         </div>
       </header>
       <main class="prod__main">
-        <form class="prod__form" action="/fabric-issuing-card" method="POST">
-          <h2>Fabric Issuing Card</h2>
+        <form class="prod__form" action="/cutting-issuing-card" method="POST">
+          <h2>Cutting Issuing Card</h2>
           <div class="formgroup">
             <label for="fabricName">Fabric Name: </label>
             <input type="text" name="fabricName" id="fabricName" />
@@ -34,24 +34,20 @@
             <input type="text" name="fabricColour" id="fabricColour" />
           </div>
           <div class="formgroup">
-            <label for="date">Date</label>
-            <input type="Date" name="date" id="date" />
+            <label for="dateOfCutting">Date Of Cutting</label>
+            <input type="Date" name="dateOfCutting" id="date" />
           </div>
           <div class="formgroup">
-            <label for="supplier">Supplier: </label>
-            <input type="text" name="supplier" id="supplier" />
+            <label for="stylenumber">Style Number: </label>
+            <input type="number" name="stylenumber" id="stylenumber" min="0" />
           </div>
           <div class="formgroup">
-            <label for="customer">Customer: </label>
-            <input type="text" name="customer" id="customer" />
-          </div>
-          <div class="formgroup">
-            <label for="linenumber">Line Number: </label>
-            <input type="number" name="linenumber" id="linenumber" min="0" />
-          </div>
-          <div class="formgroup">
-            <label for="quantity">Quantity</label>
+            <label for="quantity">Quantity (in meters)</label>
             <input type="text" name="quantity" id="quantity" />
+          </div>
+          <div class="formgroup">
+            <label for="average">Average </label>
+            <input type="text" name="average" id="average" />
           </div>
           <div id="extra-fields-div" class="formgroup"></div>
           <button id="customFields">Add More Fields +</button>

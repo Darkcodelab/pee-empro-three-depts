@@ -78,15 +78,21 @@ app.use(passport.session());
 app.use("/", require("./routes/index"));
 // app.use("/fabric-inspection", require("./routes/fabric-inspection-board.js"));
 app.use("/fabric-sourcing", require("./routes/fabric-sourcing"));
-app.use("/fabric-issuing-card", require("./routes/fabric-issuing-card"));
+app.use("/cutting-issuing-card", require("./routes/cutting-issuing-card"));
 app.use(
   "/fabric-inspection-board",
   require("./routes/fabric-inspection-board")
 );
+app.use(
+  "/available-fabrics-for-cutting",
+  require("./routes/available-cutting-fabrics")
+);
+app.use("/cutting-cards", require("./routes/cutting-card"));
 app.use("/cutting-board", require("./routes/cutting-board"));
-app.use("/rework-kanban-card", require("./routes/rework-kanban-card"));
+// app.use("/rework-kanban-card", require("./routes/rework-kanban-card"));
+app.use("/available-pieces", require("./routes/available-pieces"));
 app.use("/notification-board", require("./routes/notification-board"));
-app.use("/analyze", require("./routes/analyse"));
+// app.use("/analyze", require("./routes/analyse"));
 app.use("/login", require("./routes/login"));
 app.use("/logout", require("./routes/logout"));
 app.use("/subscribe", require("./routes/subscribe"));

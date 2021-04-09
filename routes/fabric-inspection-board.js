@@ -4,9 +4,9 @@ const path = require("path");
 const KanbanCard = require("../models/KanbanCard");
 const FabricInspectionBoardInProgress = require("../models/FabricInspectionBoardInProgress");
 const FabricInspectionBoardCompleted = require("../models/FabricInspectionBoardCompleted");
-const cuttingBoardTodo = require("../models/cuttingBoardTodo");
-let PerformanceAnalyze = require("../models/AnalysePerformance");
 let NotificationBoard = require("../models/NotificationBoard");
+let AvailableCuttingFabrics = require("../models/AvailableCuttingFabrics");
+const moment = require("moment");
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -36,6 +36,7 @@ router.get("/", async (req, res) => {
     data: Kanbandata,
     inProgress: inProgressData,
     completed: completedData,
+    moment,
   });
 });
 
@@ -66,14 +67,54 @@ router.get("/completed/:id", checkAuth, async (req, res) => {
   let completedCard = await FabricInspectionBoardCompleted.create(
     newCompletedCard
   );
-  let cuttingCard = await cuttingBoardTodo.create(newCompletedCard);
+  // don't push the cards to cutting Board TODO. rather push them to available cutting fabrics
+  let availableCuttingFabricsCard = await AvailableCuttingFabrics.create(
+    newCompletedCard
+  );
+
   newCompletedCard.dept = "fabric";
   delete newCompletedCard._id;
-  let performance = await PerformanceAnalyze.create(newCompletedCard);
   let notificationData = {
     dept: "One task completed by Fabric Inspection Department",
   };
   let notifiction = await NotificationBoard.create(notificationData);
+
+  res.redirect("/fabric-inspection-board");
+});
+
+router.get("/edit/:id", checkAuth, async (req, res) => {
+  let id = req.params.id;
+  let currentCard = await FabricInspectionBoardInProgress.findOne(
+    {
+      id: id,
+    },
+    "-_id -__v"
+  ).lean();
+  res.render(path.join(__dirname, "../", "/views/edit-fabric-card.ejs"), {
+    data: currentCard,
+  });
+});
+
+router.post("/edit/:id", checkAuth, async (req, res) => {
+  let id = req.params.id;
+  let deletedCard = await FabricInspectionBoardInProgress.findOneAndDelete({
+    id: id,
+  }).lean();
+  let newCompletedCard = {};
+  Object.keys(req.body).forEach(function (prop) {
+    newCompletedCard[prop] = req.body[prop].trim();
+  });
+  let completedCard = await FabricInspectionBoardCompleted.create(
+    newCompletedCard
+  );
+  let notificationData = {
+    dept: "One task completed by Fabric Inspection Department",
+  };
+
+  let availableCuttingFabricsCard = await AvailableCuttingFabrics.create(
+    newCompletedCard
+  );
+  let notification = await NotificationBoard.create(notificationData);
 
   res.redirect("/fabric-inspection-board");
 });

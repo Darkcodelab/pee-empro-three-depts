@@ -52,7 +52,7 @@ body {
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
   margin: 16px 0;
   padding: 12px;
-  min-height: 708px;
+  /* min-height: 708px; */
 }
 
 .panel__nav__wrapper {
@@ -335,4 +335,37 @@ input[type="submit"] {
   .board__header * {
     margin: 12px 0;
   }
+}
+
+.start__div {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.start__div a {
+  background: rgb(37, 134, 37);
+  cursor: pointer;
+  color: white;
+  width: 100%;
+  display: block;
+  padding: 12px 0;
+  border-radius: 4px;
+}
+
+.start__div form input[type="submit"] {
+  width: 100%;
+}
+
+.cancel {
+  display: block;
+  background: rgb(206, 37, 37);
+  color: white;
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 4px;
+  margin: 8px 0;
+  cursor: pointer;
 }

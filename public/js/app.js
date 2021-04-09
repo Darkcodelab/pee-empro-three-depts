@@ -6,10 +6,14 @@ extraFieldButton.addEventListener("click", function (e) {
   let input = document.createElement("input");
   input.setAttribute("type", "text");
   let fieldLabel = prompt("Field Type: (example: supplier)");
-  input.setAttribute("name", fieldLabel);
-  let label = document.createElement("lable");
-  label.setAttribute("for", fieldLabel);
-  label.innerText = fieldLabel + " :";
-  extraField__div.appendChild(label);
-  extraField__div.appendChild(input);
+  if (fieldLabel !== null && fieldLabel.length > 0) {
+    input.setAttribute("name", fieldLabel);
+    let label = document.createElement("lable");
+    label.setAttribute("for", fieldLabel);
+    label.innerText = fieldLabel + " :";
+    extraField__div.appendChild(label);
+    extraField__div.appendChild(input);
+  } else {
+    alert("value cannot be empty");
+  }
 });
