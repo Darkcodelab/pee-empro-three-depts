@@ -61,6 +61,7 @@ router.get("/completed/:id", checkAuth, async (req, res) => {
     }
   });
   delete newCompletedCard._id;
+  delete newCompletedCard["createdAt"];
   let completedCard = await CuttingBoardCompleted.create(newCompletedCard);
   let available = await AvailablePieces.create(newCompletedCard);
   newCompletedCard.dept = "cutting";
@@ -68,6 +69,44 @@ router.get("/completed/:id", checkAuth, async (req, res) => {
     dept: "One WorkCycle Completed",
   };
   let notification = await NotificationBoard.create(notificationData);
+  res.redirect("/cutting-board");
+});
+
+router.get("/edit/:id", checkAuth, async (req, res) => {
+  let id = req.params.id;
+  let currentCard = await CuttingBoardInProgress.findOne(
+    {
+      id: id,
+    },
+    "-_id -__v"
+  ).lean();
+  res.render(path.join(__dirname, "../", "/views/edit-cutting-card.ejs"), {
+    data: currentCard,
+  });
+});
+
+router.post("/edit/:id", checkAuth, async (req, res) => {
+  let id = req.params.id;
+  let deletedCard = await CuttingBoardInProgress.findOneAndDelete({
+    id: id,
+  }).lean();
+  let newCompletedCard = {};
+  Object.keys(req.body).forEach(function (prop) {
+    newCompletedCard[prop] = req.body[prop].trim();
+  });
+
+  let piecesCutValue = req.body.piecesCut;
+  newCompletedCard.piecesCut = piecesCutValue;
+  let completedCard = await CuttingBoardCompleted.create(newCompletedCard);
+  let notificationData = {
+    dept: "One task completed by Cutting Department",
+  };
+  delete newCompletedCard["createdAt"];
+  let availableCuttingFabricsCard = await AvailablePieces.create(
+    newCompletedCard
+  );
+  let notification = await NotificationBoard.create(notificationData);
+
   res.redirect("/cutting-board");
 });
 

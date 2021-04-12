@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Fabric Card</title>
+    <title>Edit Cutting Card</title>
     <%- include("./partials/head.ejs") %>
   </head>
   <body>
     <div class="container">
       <header class="board__header">
-        <h2>Edit Fabric Inspection Details</h2>
+        <h2>Edit Cutting Board Details</h2>
         <a href="/" class="nav-link">Home</a>
       </header>
       <main class="">
         <form
           style="margin-top: 50px"
-          action="/fabric-inspection-board/edit/<%=data.id%>"
+          action="/cutting-board/edit/<%=data.id%>"
           method="POST"
           class="prod__form"
         >
@@ -26,27 +26,21 @@
             <input
               type="text"
               name="<%=key%>"
-              value="<%=data[key]%> "
+              value="<%=data[key]%>"
               readonly
             />
           </div>
           <%}%> <%}%>
           <div class="formgroup">
-            <label for="afterInspection">After Inspection: </label>
-            <select name="afterInspection" id="afterInspection">
-              <option value="OK Pass">Ok Pass</option>
-              <option value="Pass with wastage">Pass with wastage</option>
-              <option value="Rejected">Rejected</option>
-              <option value="Approval Pending">Approval Pending</option>
-            </select>
+            <label for="piecesCut">Pieces Cut:</label>
+            <input type="number" name="piecesCut" id="piecesCut" />
           </div>
-
           <div id="extra-fields-div" class="formgroup"></div>
           <button style="display: none" id="customFields" type="button">
             Add More Fields +
           </button>
           <input type="submit" value="Start" class="finished" />
-          <a href="/fabric-inspection-board">cancel</a>
+          <a href="/cutting-board">cancel</a>
         </form>
       </main>
       <audio id="notification" src="/sounds/notification.mp3" muted></audio>
@@ -67,10 +61,7 @@
       let btn = document.getElementsByClassName("finished")[0];
       if (btn) {
         btn.addEventListener("click", function () {
-          socket.emit(
-            "dept completed",
-            "Task completed by Fabric Inspection Department"
-          );
+          socket.emit("dept completed", "Task completed by Cutting Department");
         });
       }
       socket.on("dept completed", (msg) => {

@@ -48,6 +48,7 @@ router.get("/:id", checkAuth, async (req, res) => {
     if (prop != "_id" || prop != "__v")
       newInProgressCard[prop] = deletedCard[prop];
   });
+  delete newInProgressCard["createdAt"];
   let inProgressCard = await FabricInspectionBoardInProgress.create(
     newInProgressCard
   );
@@ -64,6 +65,7 @@ router.get("/completed/:id", checkAuth, async (req, res) => {
     if (prop != "_id" || prop != "__v")
       newCompletedCard[prop] = deletedCard[prop];
   });
+  delete newCompletedCard["createdAt"];
   let completedCard = await FabricInspectionBoardCompleted.create(
     newCompletedCard
   );
@@ -104,6 +106,8 @@ router.post("/edit/:id", checkAuth, async (req, res) => {
   Object.keys(req.body).forEach(function (prop) {
     newCompletedCard[prop] = req.body[prop].trim();
   });
+  let afterInspectionValue = req.body.afterInspection;
+  newCompletedCard.afterInspection = afterInspectionValue;
   let completedCard = await FabricInspectionBoardCompleted.create(
     newCompletedCard
   );

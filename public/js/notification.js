@@ -3,7 +3,6 @@ let ul = document.getElementById("notificationMain");
 let deleteAll = document.getElementById("deleteNotifications");
 
 function createNotifications() {
-  console.log("Function fires");
   socket.on("dept completed", (msg) => {
     console.log("Dept Completed");
     msg = "One " + msg;
@@ -22,7 +21,6 @@ function createNotifications() {
     }
   });
   socket.on("workcycle complete", (msg) => {
-    console.log(msg, "workcycle completed");
     let li = document.createElement("li");
     li.innerText = msg;
     let p = document.createElement("p");
